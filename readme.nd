@@ -1,0 +1,75 @@
+Recursive Descent Parser LL Grammar
+
+This is a simple recursive descent parser of an LL Grammar that was created by transforming an LALR grammar.
+
+       ** LR Grammar ****
+ 
+	Calc	->ExprList
+ 
+	ExprList	-> Expr ';' ExprList
+				-> .
+ 
+	Expr	-> Expr '+' Term
+			-> Expr '-' Term
+			-> Term
+ 
+ Term		-> Term '*' Unary
+			-> Term	'/' Unary
+			-> Unary
+ 
+ Unary	-> '-' Unary
+			-> Factor
+ 
+ Factor	-> '(' expr ')'
+			-> NUM
+			-> ID
+ 
+ -------------------------------
+  ** Conversion LR->LL
+ LR --
+ A -> A B
+   -> C
+ LL --
+ A -> C A'
+ 
+ A' -> B A'
+    -> .	//empty
+ 
+	** Example **
+ A = Expr
+ B = '+' Term
+ C = Ter,
+ A' = Expr'
+ 
+ Expr	-> Term Expr'
+
+ Expr'	-> '+' Term Expr'
+			-> '-' Term Expr'
+			-> . //empty
+
+ -----------------------------
+      *Transformed Grammar*
+ 
+ Calc     ->Exprlist
+ Exprlist -> Expr ';' Exprlist
+          -> .
+ Expr     -> Term expr1
+ Expr1    -> '+' Term Expr1
+          -> '-' Term Expr1
+          -> .
+ Term     -> Unary Term1
+ Term1    -> '*' Unary Term1
+          -> '/' Unary Term1
+			-> .
+ Unary    -> '-' Unary
+          -> Factor
+ Factor   -> '(' Expr ')'
+          -> NUM
+          -> ID
+-----------------------------------------
+
+Well, I hope at least that is an LL grammar.
+
+I did this, because I keep forgetting how to do it. ;)
+
+December 18, 2022
