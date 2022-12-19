@@ -83,21 +83,21 @@ int CParser::Expr1(int LookaHeadToken)
 	switch (LookaHeadToken)
 	{
 	case '+':
-		printf("+\n");
 		LookaHeadToken = GetLexer()->Expect(
 			LookaHeadToken, 
 			'+'
 		);
 		LookaHeadToken = Term(LookaHeadToken);
+		printf("+\n");
 		LookaHeadToken = Expr1(LookaHeadToken);
 		break;
 	case '-':
-		printf("-\n");
 		LookaHeadToken = GetLexer()->Expect(
 			LookaHeadToken,
 			'-'
 		);
 		LookaHeadToken = Term(LookaHeadToken);
+		printf("-\n");
 		LookaHeadToken = Expr1(LookaHeadToken);
 		break;
 	default:
@@ -127,19 +127,19 @@ int CParser::Term1(int LookaHeadToken)
 	switch (LookaHeadToken)
 	{
 	case '*':
-		printf("*\n");
 		LookaHeadToken = GetLexer()->Expect(
 			LookaHeadToken, '*'
 		);
 		LookaHeadToken = Unary(LookaHeadToken);
+		printf("*\n");
 		LookaHeadToken = Term1(LookaHeadToken);
 		break;
 	case '/':
-		printf("/\n");
 		LookaHeadToken = GetLexer()->Expect(
 			LookaHeadToken, '/'
 		);
 		LookaHeadToken = Unary(LookaHeadToken);
+		printf("/\n");
 		LookaHeadToken = Term1(LookaHeadToken);
 		break;
 	default:
@@ -157,13 +157,13 @@ int CParser::Unary(int LookaHeadToken)
 	switch (LookaHeadToken)
 	{
 	case '-':
-		printf("-");
-		printf("NEG\n");
 		LookaHeadToken = GetLexer()->Expect(
 			LookaHeadToken,
 			'-'
 		);
 		LookaHeadToken = Unary(LookaHeadToken);
+		printf("-");
+		printf("NEG\n");
 		break;
 	default:
 		LookaHeadToken = Factor(LookaHeadToken);
