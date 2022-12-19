@@ -8,7 +8,7 @@
 // 
 //       ** LR Grammar ****
 // 
-//	Calc	->ExprList
+//	Calc	->ExprList EOF
 // 
 //	ExprList	-> Expr ';' ExprList
 //				-> .

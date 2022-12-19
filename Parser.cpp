@@ -26,9 +26,13 @@ void CParser::Run()
 int CParser::Calc(int LookaHeadToken)
 {
 	//-----------------------------
-	// calc     ->exprlist
+	// calc     ->exprlist EOF
 	//-----------------------------
 	LookaHeadToken = ExprList(LookaHeadToken);
+	if (GetLexer()->Accept(LookaHeadToken, EOF))
+		printf("Done\n");
+	else
+		printf("Unexpected EOF\n");
 	return LookaHeadToken;
 }
 
