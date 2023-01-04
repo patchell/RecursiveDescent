@@ -55,7 +55,9 @@ int CLexer::Lex()
 		case '/':
 		case '(':
 		case ')':
-		case';':
+		case '=':
+		case ',':
+		case ';':
 			Token = c;
 			Loop = false;
 			break;
@@ -97,14 +99,17 @@ int CLexer::Lex()
 					LexUngetChar(c);
 					auxLoop = false;
 				}
+			}	//end of While(auxLoop)
+			printf("LexBuff = %s\n", m_aLexBuff);
+			Token = LookupKeyword(m_aLexBuff);
+			if (Token)
+			{
+				Loop = false;
+			}
+			else
+			{
 				m_pSym = GetSymbolTable()->FindSymbol(m_aLexBuff);
-				if (m_pSym == 0)
-				{
-					m_pSym = new CSymbol;
-					m_pSym->Create();
-					m_pSym->SetName(m_aLexBuff);
-					Token = ID;
-				}
+				Token = IDENT;
 			}
 			Loop = false;
 			break;
@@ -142,6 +147,23 @@ CSymbol* CLexer::Lookup(const char* pName)
 	return pSym;
 }
 
+int CLexer::LookupKeyword(const char* pName)
+{
+	int Token = 0;
+	int i;
+	int Loop = 1;
+
+	for (i = 0; Loop && KeyWords[i].m_Token; ++i)
+	{
+		if (strcmp(KeyWords[i].m_pName, pName) == 0)
+		{
+			Token = KeyWords[i].m_Token;
+			Loop = false;
+		}
+	}
+	return Token;
+}
+
 int CLexer::Expect(int LookaHeadToken, int Token)
 {
 	int rToken;
@@ -152,7 +174,10 @@ int CLexer::Expect(int LookaHeadToken, int Token)
 	}
 	else
 	{
-		throw("Undexpected Tocken");
+		printf("Undexpeded Tooken\n");
+		printf("Expected %d Got %d\n", Token, LookaHeadToken);
+		printf("Line:%d  Col:%d", GetLineNumber(), GetColumnNumber());
+//		throw("Undexpected Tocken");
 	}
 	return rToken;
 }

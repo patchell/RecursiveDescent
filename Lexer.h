@@ -14,21 +14,41 @@ class CLexer
 public:
 	enum Token {
 		NUM = 256,
-		ID
+		IDENT,
+		INT,
+		MOD,
+		IF,
+		THEN,
+		FI
+	};
+private:
+	struct KeyWord {
+		const char* m_pName;
+		int m_Token;
+	};
+	static inline KeyWord KeyWords[] = {
+		{"INT",INT},
+		{"MOD",MOD},
+		{"IF", IF},
+		{"THEN",THEN},
+		{"FI",FI},
+		{NULL,0}
 	};
 public:
 	CLexer();
 	virtual ~CLexer();
 	void Create(FILE* pIn);
+	int Lex();
+	char* GetLexBuff() { return m_aLexBuff; }
 	CSymTab* GetSymbolTable() { return &m_SymTab; }
 	CSymbol* GetSymbol() { return m_pSym; }
 	int GetNumber() { return m_Number; }
 	int GetLineNumber() { return m_Line; }
 	int GetColumnNumber() { return m_Col; }
-	int Lex();
 	int LexGetChar();
 	void LexUngetChar(int c);
 	CSymbol* Lookup(const char* pName);
+	int LookupKeyword(const char* pName);
 	int Expect(int LookaHeadToken, int Token);
 	int Accept(int LookaHeadToken, int Token);
 	int IsANumber(int c);

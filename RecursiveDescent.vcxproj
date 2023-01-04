@@ -76,6 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,15 +131,21 @@
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="RecursiveDescent.cpp" />
+    <ClCompile Include="Stack.cpp" />
+    <ClCompile Include="StackItem.cpp" />
     <ClCompile Include="Symbol.cpp" />
     <ClCompile Include="SymTab.cpp" />
+    <ClCompile Include="Value.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lexer.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Stack.h" />
+    <ClInclude Include="StackItem.h" />
     <ClInclude Include="Symbol.h" />
     <ClInclude Include="SymTab.h" />
+    <ClInclude Include="Value.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.nd" />

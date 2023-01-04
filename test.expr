@@ -1,2 +1,9 @@
-5 + 8 * 3;
-6 - BARF * (-7);
+INT A = 16 - 3 * 2;
+INT B, C = 6, D;
+INT BARF;
+
+A = 5 + 8 * 3;
+IF C-A THEN
+	C = C + A;
+FI
+B = 6 - BARF * (-7);
